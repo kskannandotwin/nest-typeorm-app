@@ -9,10 +9,16 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDto } from './dto/user.dto';
+import { LoginDto } from './dto/login.dto';
 
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
+
+  @Post('login')
+  login(@Body() body: LoginDto) {
+    return this.usersService.login(body.email, body.password);
+  }
 
   @Post()
   create(@Body() body: UserDto) {
