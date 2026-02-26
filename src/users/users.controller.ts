@@ -8,13 +8,14 @@ import {
   Delete,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { UserDto } from './dto/user.dto';
 
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Post()
-  create(@Body() body: any) {
+  create(@Body() body: UserDto) {
     return this.usersService.create(body);
   }
 
