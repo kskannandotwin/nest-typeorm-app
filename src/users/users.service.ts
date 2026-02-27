@@ -55,4 +55,11 @@ export class UsersService {
     const { password: _, ...result } = user;
     return result as User;
   }
+
+  async findByEmailWithPassword(email: string) {
+    return this.usersRepo.findOne({
+      where: { email },
+      select: ['id', 'email', 'password'],
+    });
+  }
 }
