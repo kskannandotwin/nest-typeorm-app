@@ -59,7 +59,7 @@ export class UsersService {
   async findByEmailWithPassword(email: string) {
     return this.usersRepo.findOne({
       where: { email },
-      select: ['id', 'email', 'password'],
+      select: ['id', 'email', 'password', 'role'],
     });
   }
 }
