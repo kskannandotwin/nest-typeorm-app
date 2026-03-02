@@ -10,7 +10,7 @@ import { JwtStrategy } from 'src/jwt/jwt.strategy';
     UsersModule,
     JwtModule.register({
       secret:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwic3ViIjo5LCJpYXQiOjE3NzIxNzc4ODQsImV4cCI6MTc3MjE4MTQ4NH0.OAKaIaw_rUakp-3Sxg3yPc204yUiFd_z8n8XL9-wRyo', // Change this to a secure secret key
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwic3ViIjoxMCwiaWF0IjoxNzcyNDI1ODg4LCJleHAiOjE3NzI0Mjk0ODh9.siXf6lkPqES9lQy5SdTJCJUKCdUoI79BeJgjWg1deec', // Change this to a secure secret key
       signOptions: { expiresIn: '1h' }, // Token expiration time
     }),
   ],
