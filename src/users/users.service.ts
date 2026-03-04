@@ -62,4 +62,8 @@ export class UsersService {
       select: ['id', 'email', 'password', 'role'],
     });
   }
+
+  async findById(id: number) {
+    return this.usersRepo.findOne({ where: { id } });
+  }
 }

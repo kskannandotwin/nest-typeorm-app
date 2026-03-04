@@ -28,6 +28,9 @@ export class AuthService {
     const access_token = this.jwtService.sign(payload, { expiresIn: '15m' });
     const refresh_token = this.jwtService.sign(payload, { expiresIn: '7d' });
 
+    // Store the refresh token in the database
+    await this.userService.update(user.id, { refreshToken: refresh_token });
+
     return {
       access_token,
       refresh_token,
@@ -37,6 +40,13 @@ export class AuthService {
   async refreshToken(refresh_token: string) {
     try {
       const payload = this.jwtService.verify(refresh_token);
+
+      // get user from database
+      const user = await this.userService.findById(payload.sub);
+
+      if (!user || user.refreshToken !== refresh_token) {
+        throw new UnauthorizedException('Invalid refresh token');
+      }
 
       const newPayload = {
         email: payload.email,
@@ -54,5 +64,12 @@ export class AuthService {
     } catch (error) {
       throw new UnauthorizedException('Invalid refresh token');
     }
+  }
+
+  async logout(userId: number) {
+    // Clear the refresh token in the database
+    await this.userService.update(userId, { refreshToken: '' });
+
+    return { message: 'Logged out successfully' };
   }
 }
