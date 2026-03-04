@@ -63,7 +63,10 @@ export class UsersService {
     });
   }
 
-  async findById(id: number) {
-    return this.usersRepo.findOne({ where: { id } });
+  async findById(id: number): Promise<User | null> {
+    return this.usersRepo.findOne({
+      where: { id },
+      select: ['id', 'email', 'name', 'role'], // Exclude password and refreshToken
+    });
   }
 }
