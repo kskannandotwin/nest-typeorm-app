@@ -12,6 +12,9 @@ import {
 import { UsersService } from './users.service';
 import { UserDto } from './dto/user.dto';
 import { JwtAuthGuard } from 'src/jwt/jwt-auth.guard';
+import { RolesGuard } from 'src/roles/roles.guard';
+import { Roles } from 'src/roles/roles.decorator';
+import { UserRole } from './user.entity';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @ApiTags('users')
@@ -26,7 +29,8 @@ export class UsersController {
     return this.usersService.create(body);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
   @Get()
   findAll(@Req() req) {
     console.log('Authenticated user:', req.user); // Log the authenticated user info
@@ -46,7 +50,8 @@ export class UsersController {
     return await this.usersService.update(id, body);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
   @Delete(':id')
   async delete(@Param('id') id: number) {
     return await this.usersService.delete(id);
